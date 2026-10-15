@@ -55,7 +55,7 @@
   <div class="toolbar">
     <div>
       <h2>Fruit Value List</h2>
-      <p id="resultCount">11 میوه</p>
+      <p id="resultCount">39 میوه</p>
     </div>
     <div class="tools">
       <input id="search" placeholder="جستجوی میوه..." aria-label="جستجوی میوه">
@@ -72,6 +72,9 @@
     <button class="filter active" data-filter="all">همه</button>
     <button class="filter" data-filter="mythical">MYTHICAL</button>
     <button class="filter" data-filter="legendary">LEGENDARY</button>
+    <button class="filter" data-filter="rare">RARE</button>
+    <button class="filter" data-filter="uncommon">UNCOMMON</button>
+    <button class="filter" data-filter="common">COMMON</button>
   </div>
 
   <section class="grid" id="fruitGrid"></section>
@@ -203,21 +206,49 @@
   <div>Blox Fruits • ارتباط با ما در روبیکا</div>
 </footer><script>
 const defaultFruits = [
-  {name:"Dragon West", price:5000000, rarity:"mythical", value:"5M", demand:10, type:"Beast", emoji:"🐉", img:"https://cdn3.emoji.gg/emojis/54696-dragon-bloxfruits.png", stock:10},
-  {name:"Dragon East", price:4000000, rarity:"mythical", value:"4M", demand:10, type:"Beast", emoji:"🐉", img:"https://cdn3.emoji.gg/emojis/54696-dragon-bloxfruits.png", stock:10},
-  {name:"Kitsune", price:750000, rarity:"mythical", value:"750K", demand:10, type:"Beast", emoji:"🦊", img:"https://cdn3.emoji.gg/emojis/72523-kitsune.png", stock:10},
-  {name:"T-Rex", price:60000, rarity:"mythical", value:"60K", demand:8, type:"Beast", emoji:"🦖", img:"https://cdn3.emoji.gg/emojis/84313-trex-bloxfruits.png", stock:10},
-  {name:"Tiger", price:140000, rarity:"mythical", value:"140K", demand:8, type:"Beast", emoji:"🐅", img:"https://cdn3.emoji.gg/emojis/988436-tigerfruit.png", stock:10},
-  {name:"Yeti", price:130000, rarity:"mythical", value:"130K", demand:8, type:"Beast", emoji:"🧊", img:"https://cdn3.emoji.gg/emojis/109777-yetifruit.png", stock:10},
-  {name:"Lightning", price:75000, rarity:"legendary", value:"75K", demand:7, type:"Logia", emoji:"⚡", img:"images/lightning.png", stock:10},
-  {name:"Gas", price:90000, rarity:"mythical", value:"90K", demand:7, type:"Logia", emoji:"⛽", img:"https://cdn3.emoji.gg/emojis/42114-gas-fruit.png", stock:10},
-  {name:"Dough", price:59000, rarity:"mythical", value:"59K", demand:9, type:"Logia", emoji:"🍩", img:"https://cdn3.emoji.gg/emojis/38301-dough-bloxfruits.png", stock:10},
-  {name:"Buddha", price:45000, rarity:"legendary", value:"45K", demand:8, type:"Beast", emoji:"🧘", img:"https://cdn3.emoji.gg/emojis/4055-buddha-bloxfruits.png", stock:10},
-  {name:"Portal", price:45000, rarity:"legendary", value:"45K", demand:10, type:"Natural", emoji:"🌀", img:"https://cdn3.emoji.gg/emojis/55921-portal-bloxfruits.png", stock:10}
+  {name:"West Dragon", price:5000000, rarity:"mythical", value:"3.99B", demand:10, type:"Beast", emoji:"🐉", img:"images/west-dragon.png", status:"Overpaid", stock:10},
+  {name:"East Dragon", price:4000000, rarity:"mythical", value:"3.39B", demand:10, type:"Beast", emoji:"🐲", img:"images/east-dragon.png", status:"Overpaid", stock:10},
+  {name:"Kitsune", price:750000, rarity:"mythical", value:"600M", demand:10, type:"Beast", emoji:"🦊", img:"images/kitsune.png", status:"Stable", stock:10},
+  {name:"Control", price:190000, rarity:"mythical", value:"150M", demand:8, type:"Natural", emoji:"🎛️", img:"images/control.png", status:"Stable", stock:10},
+  {name:"Magnet", price:860000, rarity:"mythical", value:"690M", demand:7, type:"Beast", emoji:"🧲", img:"images/magnet.png", status:"Unstable", stock:10},
+  {name:"Tiger", price:140000, rarity:"mythical", value:"140K", demand:8, type:"Beast", emoji:"🐅", img:"https://cdn3.emoji.gg/emojis/988436-tigerfruit.png", status:"Stable", stock:10},
+  {name:"Yeti", price:130000, rarity:"mythical", value:"130K", demand:8, type:"Beast", emoji:"🧊", img:"https://cdn3.emoji.gg/emojis/109777-yetifruit.png", status:"Stable", stock:10},
+  {name:"Lightning", price:75000, rarity:"legendary", value:"75K", demand:7, type:"Logia", emoji:"⚡", img:"images/lightning.png", status:"Stable", stock:10},
+  {name:"Gas", price:90000, rarity:"mythical", value:"90K", demand:7, type:"Logia", emoji:"⛽", img:"https://cdn3.emoji.gg/emojis/42114-gas-fruit.png", status:"Stable", stock:10},
+  {name:"Dough", price:59000, rarity:"mythical", value:"30M", demand:9, type:"Logia", emoji:"🍩", img:"images/dough.png", status:"Overpaid", stock:10},
+  {name:"Pain", price:45000, rarity:"legendary", value:"10M", demand:5, type:"Natural", emoji:"😣", img:"images/pain.png", status:"Stable", stock:10},
+  {name:"T-Rex", price:60000, rarity:"mythical", value:"20M", demand:8, type:"Beast", emoji:"🦖", img:"images/t-rex.png", status:"Stable", stock:10},
+  {name:"Gravity", price:45000, rarity:"mythical", value:"10M", demand:5, type:"Natural", emoji:"🪐", img:"images/gravity.png", status:"Stable", stock:10},
+  {name:"Mammoth", price:45000, rarity:"mythical", value:"10M", demand:5, type:"Beast", emoji:"🦣", img:"images/mammoth.png", status:"Stable", stock:10},
+  {name:"Spirit", price:45000, rarity:"mythical", value:"10M", demand:7, type:"Natural", emoji:"👻", img:"images/spirit.png", status:"Stable", stock:10},
+  {name:"Shadow", price:29500, rarity:"mythical", value:"6.5M", demand:5, type:"Natural", emoji:"🌑", img:"images/shadow.png", status:"Stable", stock:10},
+  {name:"Portal", price:45000, rarity:"legendary", value:"10M", demand:10, type:"Natural", emoji:"🌀", img:"images/portal.png", status:"Overpaid", stock:10},
+  {name:"Buddha", price:45000, rarity:"legendary", value:"10M", demand:10, type:"Beast", emoji:"🧘", img:"images/buddha.png", status:"Overpaid", stock:10},
+  {name:"Blizzard", price:22500, rarity:"legendary", value:"5M", demand:5, type:"Logia", emoji:"🌨️", img:"images/blizzard.png", status:"Stable", stock:10},
+  {name:"Creation", price:11500, rarity:"legendary", value:"2.5M", demand:2, type:"Natural", emoji:"🧱", img:"images/creation.png", status:"Stable", stock:10},
+  {name:"Phoenix", price:12500, rarity:"legendary", value:"2.75M", demand:3, type:"Beast", emoji:"🔥", img:"images/phoenix.png", status:"Stable", stock:10},
+  {name:"Sound", price:11500, rarity:"legendary", value:"2.5M", demand:4, type:"Natural", emoji:"🔊", img:"images/sound.png", status:"Stable", stock:10},
+  {name:"Spider", price:7000, rarity:"legendary", value:"1.5M", demand:2, type:"Natural", emoji:"🕷️", img:"images/spider.png", status:"Stable", stock:10},
+  {name:"Love", price:7000, rarity:"legendary", value:"1.5M", demand:3, type:"Natural", emoji:"💖", img:"images/love.png", status:"Stable", stock:10},
+  {name:"Magma", price:5000, rarity:"rare", value:"1.15M", demand:5, type:"Logia", emoji:"🌋", img:"images/magma.png", status:"Overpaid", stock:10},
+  {name:"Quake", price:4500, rarity:"legendary", value:"1M", demand:2, type:"Natural", emoji:"💥", img:"images/quake.png", status:"Stable", stock:10},
+  {name:"Diamond", price:4500, rarity:"uncommon", value:"1M", demand:2, type:"Natural", emoji:"💎", img:"images/diamond.png", status:"Stable", stock:10},
+  {name:"Light", price:3600, rarity:"rare", value:"800K", demand:2, type:"Logia", emoji:"🌟", img:"images/light.png", status:"Stable", stock:10},
+  {name:"Ghost", price:3600, rarity:"rare", value:"800K", demand:1, type:"Natural", emoji:"👻", img:"images/ghost.png", status:"Underpaid", stock:10},
+  {name:"Eagle", price:3600, rarity:"uncommon", value:"800K", demand:2, type:"Beast", emoji:"🦅", img:"images/eagle.png", status:"Stable", stock:10},
+  {name:"Rubber", price:3200, rarity:"rare", value:"700K", demand:1, type:"Natural", emoji:"🎈", img:"images/rubber.png", status:"Stable", stock:10},
+  {name:"Ice", price:2500, rarity:"uncommon", value:"550K", demand:2, type:"Logia", emoji:"🧊", img:"images/ice.png", status:"Stable", stock:10},
+  {name:"Sand", price:1900, rarity:"uncommon", value:"420K", demand:1, type:"Logia", emoji:"🏜️", img:"images/sand.png", status:"Stable", stock:10},
+  {name:"Dark", price:1800, rarity:"uncommon", value:"400K", demand:1, type:"Logia", emoji:"🌌", img:"images/dark.png", status:"Stable", stock:10},
+  {name:"Flame", price:1100, rarity:"uncommon", value:"250K", demand:1, type:"Logia", emoji:"🔥", img:"images/flame.png", status:"Stable", stock:10},
+  {name:"Spike", price:800, rarity:"common", value:"180K", demand:1, type:"Natural", emoji:"🌵", img:"images/spike.png", status:"Stable", stock:10},
+  {name:"Smoke", price:450, rarity:"common", value:"100K", demand:1, type:"Logia", emoji:"💨", img:"images/smoke.png", status:"Stable", stock:10},
+  {name:"Bomb", price:350, rarity:"common", value:"80K", demand:1, type:"Natural", emoji:"💣", img:"images/bomb.png", status:"Stable", stock:10},
+  {name:"Spring", price:250, rarity:"common", value:"60K", demand:1, type:"Natural", emoji:"🌀", img:"images/spring.png", status:"Stable", stock:10}
 ];
 
-let fruits = JSON.parse(localStorage.getItem("fruitProducts") || "null") || defaultFruits;
-function saveProducts(){ localStorage.setItem("fruitProducts", JSON.stringify(fruits)); }
+let fruits = JSON.parse(localStorage.getItem("fruitProducts_v2") || "null") || defaultFruits;
+function saveProducts(){ localStorage.setItem("fruitProducts_v2", JSON.stringify(fruits)); }
 function productValue(f){ return f.price>=1000000 ? (f.price/1000000).toFixed(1).replace(".0","")+"M" : f.price>=1000 ? Math.round(f.price/1000)+"K" : String(f.price); }
 
 const fmt = n => new Intl.NumberFormat("fa-IR").format(n) + " تومان";
@@ -244,7 +275,7 @@ function render(){
       <div class="card-body">
         <h3>${f.name}</h3>
         <div class="switch"><span class="active">Regular</span><span>Permanent</span></div>
-        <div class="value-row"><strong>${f.value}</strong><span class="state">${f.demand>=9?"High Demand":"Stable"}</span></div>
+        <div class="value-row"><strong>${f.value}</strong><span class="state ${(f.status||"Stable").toLowerCase()}">${f.status||(f.demand>=9?"High Demand":"Stable")}</span></div>
         <div class="meter">${Array.from({length:10},(_,x)=>`<i class="${x<f.demand?'on':''}"></i>`).join("")}</div>
         <div class="meta"><span>Demand</span><b>${f.demand}/10</b></div>
         <div class="meta"><span>Price</span><b class="orange">${fmt(f.price)}</b></div>
